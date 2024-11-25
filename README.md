@@ -24,7 +24,7 @@ When the tool is installed, run the command for a _database migration:_
 
 For more information see the link below:
 
-\[https://learn.microsoft.com/en-us/ef/core/cli/dotnet](Microsoft Documentation)
+[https://learn.microsoft.com/en-us/ef/core/cli/dotnet](https://learn.microsoft.com/en-us/ef/core/cli/dotnet)
 
 ### **Angular application installation**
 
