@@ -1,0 +1,43 @@
+<div class="container">   
+    <div class="row">
+        @if(this.service().isLoading()) {
+            <p>Loading...</p>
+        }
+
+        @if(this.service().data()) {
+            @if(this.service().data()?.length ?? 0 > 0)  {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Author</th>
+                            <th>Publisher</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(book of this.service().data(); track book.id) {
+                            <tr>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.author|fullname }}</td>
+                                <td>{{ book.publisher ? book.publisher.name : 'unknown' }}</td>
+                                <td>
+                                    <button type="button" mat-raised-button color="accent" [routerLink]="['/book-details', book.id]">
+                                        <mat-icon>arrow_right</mat-icon>
+                                        <span>Show Details</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            } @else {
+                <p>There are no books to show.</p>
+            }     
+        }
+
+        @if(this.service().error()) {
+            <p>Error occurred: {{ this.service().error() }}</p>
+        }
+    </div>
+</div>

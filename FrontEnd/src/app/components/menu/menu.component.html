@@ -1,0 +1,23 @@
+<nav class="container-flex-row ">    
+    <ul>
+        <li>
+            <button type="button" mat-raised-button color="primary" [routerLink]="['/']">
+                <mat-icon>home</mat-icon>
+                <span>Home</span>
+            </button>
+        </li>
+        <li>
+            <button type="button" mat-raised-button color="primary" [routerLink]="['/all-books']">
+                <mat-icon>book</mat-icon>
+                <span>All Books</span>
+            </button>
+        </li>
+        <li>
+            <button type="button" mat-raised-button color="primary" [routerLink]="['/create-book']">
+                <mat-icon>add_box</mat-icon>
+                <span>Create Book</span>
+            </button>
+        </li>
+    </ul>
+</nav>
+<router-outlet></router-outlet>

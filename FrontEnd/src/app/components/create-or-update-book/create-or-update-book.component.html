@@ -1,0 +1,55 @@
+@if(this.create().isLoading() || this.update().isLoading()) {
+    <h3>{{ this.isUpdateMode() ? 'Updating Book...' : 'Creating new Book...' }}</h3>
+} @else {
+    <div class="container">
+        <div class="row p-1">
+            <h3 class="ps-1">{{ this.isUpdateMode() ? 'Update Book' : 'Create new Book' }}</h3>
+        </div>
+        @if(this.errorMessage() !== '') {
+            <div class="error">
+                {{ this.errorMessage() }}
+            </div>
+        }
+        <div class="container-row p-1">    
+            <form [formGroup]="this.bookForm">
+                <h4>Book information</h4>
+                @for(field of this.bookFormFields; track $index) {
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>{{ field[1] }}</mat-label>
+                            <input type="text" matInput [formControlName]="field[0]">
+                        </mat-form-field>
+                    </div>
+                }
+            </form>
+            <form [formGroup]="this.authorForm">
+                <h4>Author information</h4>
+                @for(field of this.authorFormFields; track $index) {
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>{{ field[1] }}</mat-label>
+                            <input type="text" matInput [formControlName]="field[0]">
+                        </mat-form-field>
+                    </div>
+                }
+            </form>
+            <form [formGroup]="this.publisherForm">
+                <h4>Publisher</h4>
+                @for(field of this.publisherFormFields; track $index) {
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>{{ field[1] }}</mat-label>
+                            <input type="text" matInput [formControlName]="field[0]">
+                        </mat-form-field>
+                    </div>
+                }        
+            </form>  
+        </div>
+        <div class="row p-1">
+            <button type="button" mat-raised-button color="primary" (click)="this.submit()">
+                <mat-icon>save</mat-icon>
+                <span>{{ this.isUpdateMode() ? 'Update' : 'Create' }}</span>
+            </button>
+        </div>
+    </div>
+}

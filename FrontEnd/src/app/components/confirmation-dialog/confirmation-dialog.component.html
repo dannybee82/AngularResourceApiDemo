@@ -1,0 +1,8 @@
+<h2 class="ps-1" mat-dialog-title>{{ this.dialogTitle() }}</h2>
+<mat-dialog-content>
+    {{ this.dialogMessage() }}
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="cancel()" color="warn">{{ this.cancelText() }}</button>
+    <button mat-button (click)="confirm()" color="primary">{{ this.confirmText() }}</button>
+</mat-dialog-actions>
