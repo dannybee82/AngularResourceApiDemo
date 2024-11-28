@@ -1,7 +1,7 @@
 import { GenericsDeleteInterface } from "./generics-delete.interface";
 import { GenericsShared } from "../shared/generics-shared.interface";
 import { environment } from "../../../../environments/environment";
-import { resource, ResourceRef, Signal, signal, WritableSignal } from "@angular/core";
+import { resource, ResourceRef, ResourceStatus, Signal, signal, WritableSignal } from "@angular/core";
 
 const api: string = environment.endpoint;
 
@@ -36,9 +36,14 @@ export class GenericsDeleteClass<T> implements GenericsDeleteInterface<T>, Gener
     data: WritableSignal<boolean | undefined> = this.deleteResource.value;
     isLoading: Signal<boolean> = this.deleteResource.isLoading;
     error: Signal<any> = this.deleteResource.error;
+    status: Signal<ResourceStatus> = this.deleteResource.status;
 
     onTargetIdChange(id: number): void {
         this.targetId.set(id);
+    }
+
+    destroyResource(): void {
+      this.deleteResource.destroy();
     }
 
 }

@@ -1,4 +1,4 @@
-import { resource, ResourceRef, Signal, signal, WritableSignal } from "@angular/core";
+import { resource, ResourceRef, ResourceStatus, Signal, signal, WritableSignal } from "@angular/core";
 import { GenericsByIdInterface } from "./generics-by-id.interface";
 import { environment } from "../../../../environments/environment";
 import { GenericsShared } from "../shared/generics-shared.interface";
@@ -36,13 +36,18 @@ export abstract class GenericsByIdClass<T> implements GenericsByIdInterface<T>, 
     data: Signal<T | undefined> = this.getByIdResource.value;
     isLoading: Signal<boolean> = this.getByIdResource.isLoading;
     error: Signal<any> = this.getByIdResource.error;
-
+    status: Signal<ResourceStatus> = this.getByIdResource.status;
+ 
     reload(): void {
       this.getByIdResource.reload();
     }
 
     onTargetIdChange(id: number): void {
       this.targetId.set(id);
+    }
+
+    destroyResource(): void {
+      this.getByIdResource.destroy();
     }
 
 }

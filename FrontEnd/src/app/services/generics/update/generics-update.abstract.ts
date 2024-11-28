@@ -1,4 +1,4 @@
-import { resource, ResourceRef, Signal, signal, WritableSignal } from "@angular/core";
+import { resource, ResourceRef, ResourceStatus, Signal, signal, WritableSignal } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 import { GenericsShared } from "../shared/generics-shared.interface";
 import { GenericsUpdateInterface } from "./generics-update.interface";
@@ -36,9 +36,14 @@ export abstract class GenericsUpdateClass<T> implements GenericsUpdateInterface<
     data: WritableSignal<boolean | undefined> = this.updateResource.value;
     isLoading: Signal<boolean> = this.updateResource.isLoading;
     error: Signal<any> = this.updateResource.error;
-
+    status: Signal<ResourceStatus> = this.updateResource.status;
+    
     onChangeEntity(entity: T): void {
         this.entity.set(entity);
     }
+
+    destroyResource(): void {
+        this.updateResource.destroy();
+    }  
 
 }
