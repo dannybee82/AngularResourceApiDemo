@@ -10,4 +10,6 @@ export interface GenericsByIdInterface<T> {
     onTargetIdChange(id: number): void;
 
     reload(): void;
+    
+    hasValue: boolean;
 }

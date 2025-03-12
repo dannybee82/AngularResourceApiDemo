@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AllMaterialsModule } from '../../all-materials-module.module';
 import { RouterModule } from '@angular/router';
-import { AllBooksService } from '../../services/book/all-books.service';
 import { FullnamePipe } from '../../custom_pipes/fullname.pipe';
+import { GenericsAllClass } from '../../services/generics/all/generics-all.abstract';
+import { Book } from '../../models/book.interface';
 
 @Component({
   selector: 'app-all-books',
@@ -14,18 +15,16 @@ import { FullnamePipe } from '../../custom_pipes/fullname.pipe';
   templateUrl: './all-books.component.html',
   styleUrl: './all-books.component.scss'
 })
-export class AllBooksComponent implements OnInit {
+export class AllBooksComponent extends GenericsAllClass<Book> implements OnInit {
 
-  private allBooksService = inject(AllBooksService);
-
-  ngOnInit(): void {
-    if(this.service().data()) {
-      this.service().reload();
-    }
+  constructor(){
+    super('Book', 'GetAll', []);
   }
 
-  service(): AllBooksService {
-    return this.allBooksService;
+  ngOnInit(): void {
+    if(this.data()) {
+      this.reload();
+    }
   }
 
 }

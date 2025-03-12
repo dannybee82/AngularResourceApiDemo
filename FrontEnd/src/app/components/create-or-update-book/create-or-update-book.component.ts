@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, InputSignal, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, effect, EffectRef, inject, input, InputSignal, OnInit, signal, WritableSignal } from '@angular/core';
 import { CreateBookService } from '../../services/book/create-book.service';
 import { FormBuilder, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
 import { BookDetailsService } from '../../services/book/book-details.service';
@@ -24,10 +24,12 @@ import { Publisher } from '../../models/publisher.interface';
 })
 export class CreateOrUpdateBookComponent implements OnInit {
 
-  bookId: InputSignal<number> = input.required<number>();
+  bookId: InputSignal<number> = input.required<number>();  
   private _updateBook: WritableSignal<Book | undefined> = signal(undefined);
+
   isUpdateMode: WritableSignal<boolean> = signal(false);
-  updateFormsEffect = effect(() => {
+  
+  updateFormsEffect: EffectRef = effect(() => {
     if(this.isUpdateMode() && this.bookService().data()) {
       const book: Book | undefined = this.bookService().data();
 
@@ -49,6 +51,7 @@ export class CreateOrUpdateBookComponent implements OnInit {
       }
     }
   });
+
   creatingBookFinished = effect(() => {
     if(this.create().data()) {
       this.router.navigate(['/all-books']);
@@ -58,6 +61,7 @@ export class CreateOrUpdateBookComponent implements OnInit {
       this.errorMessage.set("Can't create new Book.");
     }
   });
+
   updatingBookFinished = effect(() => {
     if(this.update().data()) {
       this.bookService().reload();
@@ -68,6 +72,7 @@ export class CreateOrUpdateBookComponent implements OnInit {
       this.errorMessage.set("Can't update Book.");
     }
   });
+  
   errorMessage: WritableSignal<string> = signal('');
 
   bookForm: UntypedFormGroup = new FormGroup({});

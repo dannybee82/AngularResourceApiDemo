@@ -8,7 +8,7 @@ import { GenericsAllClass } from '../generics/all/generics-all.abstract';
 export class AllBooksService extends GenericsAllClass<Book> {
 
   constructor() {
-    super('Book');
+    super('Book', 'GetAll', []);
   }
 
 }

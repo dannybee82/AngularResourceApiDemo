@@ -8,7 +8,8 @@ const api: string = environment.endpoint;
 export class GenericsDeleteClass<T> implements GenericsDeleteInterface<T>, GenericsShared {
     
     constructor(
-        protected controller: string
+        protected controller: string,
+        protected methodname: string
     ) {}
 
     targetId: WritableSignal<number> = signal(0);
@@ -20,7 +21,7 @@ export class GenericsDeleteClass<T> implements GenericsDeleteInterface<T>, Gener
     
           if(id > 0) {
             const response = await fetch(
-              `${api}${this.controller}/Delete?id=${id}`,
+              `${api}${this.controller}/${this.methodname}?id=${id}`,
               {
                 method: 'DELETE',  
                 headers: {"Content-Type": "application/json"}

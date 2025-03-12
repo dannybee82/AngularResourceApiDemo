@@ -8,7 +8,7 @@ import { GenericsByIdClass } from '../generics/by_id/generics-by-id.abstract';
 export class BookDetailsService extends GenericsByIdClass<Book> {
 
   constructor() {
-    super('Book');
+    super('Book', 'GetById');
   }
 
 }

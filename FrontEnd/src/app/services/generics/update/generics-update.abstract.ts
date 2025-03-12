@@ -8,7 +8,8 @@ const api: string = environment.endpoint;
 export abstract class GenericsUpdateClass<T> implements GenericsUpdateInterface<T>, GenericsShared {
 
     constructor(
-        protected controller: string
+        protected controller: string,
+        protected methodname: string
     ) {}
 
     entity: WritableSignal<T | undefined> = signal(undefined);
@@ -18,7 +19,7 @@ export abstract class GenericsUpdateClass<T> implements GenericsUpdateInterface<
         loader: async () => {
             if(this.entity()) {
                 const response = await fetch(
-                    `${api}${this.controller}/Update`,
+                    `${api}${this.controller}/${this.methodname}`,
                     {
                         method: 'PUT',
                         body: JSON.stringify(this.entity()),

@@ -8,7 +8,8 @@ const api: string = environment.endpoint;
 export abstract class GenericsCreateClass<T> implements GenericsCreateInterface<T>, GenericsShared {
 
     constructor(
-        protected controller: string
+        protected controller: string,
+        protected methodname: string
     ) {}
 
     entity: WritableSignal<T | undefined> = signal(undefined);
@@ -18,7 +19,7 @@ export abstract class GenericsCreateClass<T> implements GenericsCreateInterface<
         loader: async () => {
             if(this.entity()) {
                 const response = await fetch(
-                    `${api}${this.controller}/Create`,
+                    `${api}${this.controller}/${this.methodname}`,
                     {
                         method: 'POST',
                         body: JSON.stringify(this.entity()),
@@ -37,7 +38,7 @@ export abstract class GenericsCreateClass<T> implements GenericsCreateInterface<
     isLoading: Signal<boolean> = this.createResource.isLoading;
     error: Signal<any> = this.createResource.error;
     status: Signal<ResourceStatus> = this.createResource.status;
-    
+
     onChangeEntity(entity: T): void {
         this.entity.set(entity);
     }

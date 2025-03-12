@@ -1,5 +1,5 @@
 <section class="container">   
-    @if(this.service().isLoading()) {
+    @if(this.isLoading()) {
         <p>Loading...</p>
     } 
 
@@ -9,8 +9,8 @@
         </div>
     }
 
-    @if(this.service().data()) {
-        @let book = this.service().data();
+    @if(this.data()) {
+        @let book = this.data();
         <mat-card class="book-card">
             <mat-card-header>
                 <mat-card-title>{{ book?.title }}</mat-card-title>
@@ -44,7 +44,7 @@
         </mat-card>    
     }
 
-    @if(this.service().error()) {
+    @if(this.error()) {
         <p>Can't fetch Book Details. Error: this.bookDetailsService.errorBookDetails()</p>
     }
 </section>

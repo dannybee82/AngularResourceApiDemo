@@ -7,14 +7,21 @@ const api: string = environment.endpoint;
 
 export abstract class GenericsAllClass<T> implements GenericsAllInterface<T>, GenericsShared {
 
-    constructor(
-        protected controller: string
-    ) {}
+    private _defaultValue: T[] | undefined = undefined;
 
-    getAllResource: ResourceRef<T[]> = resource({
+    constructor(
+        protected controller: string,
+        protected methodname: string,
+        protected defaultValue: T[] | undefined
+    ) {
+        this._defaultValue = defaultValue;
+    }
+
+    getAllResource: ResourceRef<T[] | undefined> = resource({
+        defaultValue: this._defaultValue ?? undefined,
         loader: async () => {
             const response = await fetch(
-                `${api}${this.controller}/GetAll`, 
+                `${api}${this.controller}/${this.methodname}`, 
                 {
                     headers: {"Content-Type": "application/json"}
                 });
@@ -26,6 +33,7 @@ export abstract class GenericsAllClass<T> implements GenericsAllInterface<T>, Ge
     isLoading: Signal<boolean> = this.getAllResource.isLoading;
     error: Signal<any> = this.getAllResource.error;
     status: Signal<ResourceStatus> = this.getAllResource.status;
+    hasValue: boolean = this.getAllResource.hasValue();
 
     reload(): void {
         this.getAllResource.reload();
