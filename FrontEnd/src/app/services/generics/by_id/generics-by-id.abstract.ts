@@ -19,7 +19,7 @@ export abstract class GenericsByIdClass<T> implements GenericsByIdInterface<T>, 
     loader: async (params) => {
       const id: number = params.request;
     
-      if(id > 0) {
+      if(this.controller && this.methodname && id > 0) {
         const response = await fetch(
           `${api}${this.controller}/${this.methodname}?id=${id}`, 
           {
@@ -37,7 +37,7 @@ export abstract class GenericsByIdClass<T> implements GenericsByIdInterface<T>, 
 
   data: Signal<T | undefined> = this.getByIdResource.value;
   isLoading: Signal<boolean> = this.getByIdResource.isLoading;
-  error: Signal<any> = this.getByIdResource.error;
+  error: Signal<unknown> = this.getByIdResource.error;
   status: Signal<ResourceStatus> = this.getByIdResource.status;
   hasValue: boolean = this.getByIdResource.hasValue();
 

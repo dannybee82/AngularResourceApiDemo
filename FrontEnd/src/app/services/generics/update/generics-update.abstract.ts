@@ -36,7 +36,7 @@ export abstract class GenericsUpdateClass<T> implements GenericsUpdateInterface<
 
     data: WritableSignal<boolean | undefined> = this.updateResource.value;
     isLoading: Signal<boolean> = this.updateResource.isLoading;
-    error: Signal<any> = this.updateResource.error;
+    error: Signal<unknown> = this.updateResource.error;
     status: Signal<ResourceStatus> = this.updateResource.status;
     
     onChangeEntity(entity: T): void {

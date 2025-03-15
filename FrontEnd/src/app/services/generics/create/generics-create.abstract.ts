@@ -36,7 +36,7 @@ export abstract class GenericsCreateClass<T> implements GenericsCreateInterface<
 
     data: WritableSignal<boolean | undefined> = this.createResource.value;
     isLoading: Signal<boolean> = this.createResource.isLoading;
-    error: Signal<any> = this.createResource.error;
+    error: Signal<unknown> = this.createResource.error;
     status: Signal<ResourceStatus> = this.createResource.status;
 
     onChangeEntity(entity: T): void {

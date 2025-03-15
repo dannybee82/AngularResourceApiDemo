@@ -36,7 +36,7 @@ export class GenericsDeleteClass<T> implements GenericsDeleteInterface<T>, Gener
 
     data: WritableSignal<boolean | undefined> = this.deleteResource.value;
     isLoading: Signal<boolean> = this.deleteResource.isLoading;
-    error: Signal<any> = this.deleteResource.error;
+    error: Signal<unknown> = this.deleteResource.error;
     status: Signal<ResourceStatus> = this.deleteResource.status;
 
     onTargetIdChange(id: number): void {

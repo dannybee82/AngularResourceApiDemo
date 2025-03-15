@@ -3,7 +3,7 @@ import { ResourceStatus, Signal } from "@angular/core";
 export interface GenericsShared {
     isLoading: Signal<boolean>;
     
-    error: Signal<any>;
+    error: Signal<unknown>;
 
     status: Signal<ResourceStatus>;
 

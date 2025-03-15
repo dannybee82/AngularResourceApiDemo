@@ -17,21 +17,26 @@ export abstract class GenericsAllClass<T> implements GenericsAllInterface<T>, Ge
         this._defaultValue = defaultValue;
     }
 
-    getAllResource: ResourceRef<T[] | undefined> = resource({
+    getAllResource: ResourceRef<T[] | undefined> = resource({        
         defaultValue: this._defaultValue ?? undefined,
         loader: async () => {
-            const response = await fetch(
-                `${api}${this.controller}/${this.methodname}`, 
-                {
-                    headers: {"Content-Type": "application/json"}
-                });
-            return await response.json() as T[]
+            if(this.controller && this.defaultValue) {
+                const response = await fetch(
+                    `${api}${this.controller}/${this.methodname}`, 
+                    {
+                        headers: {"Content-Type": "application/json"}
+                    }
+                );
+                return await response.json() as T[];
+            }
+
+            return undefined;            
         }
     });
     
     data: Signal<T[] | undefined> = this.getAllResource.value;
     isLoading: Signal<boolean> = this.getAllResource.isLoading;
-    error: Signal<any> = this.getAllResource.error;
+    error: Signal<unknown> = this.getAllResource.error;
     status: Signal<ResourceStatus> = this.getAllResource.status;
     hasValue: boolean = this.getAllResource.hasValue();
 
